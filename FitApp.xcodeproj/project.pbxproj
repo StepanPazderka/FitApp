@@ -9,20 +9,26 @@
 /* Begin PBXBuildFile section */
 		7F89AB592ACA1333001A5A37 /* FitAppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F89AB582ACA1333001A5A37 /* FitAppApp.swift */; };
 		7F89AB5B2ACA1333001A5A37 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F89AB5A2ACA1333001A5A37 /* ContentView.swift */; };
-		7F89AB5D2ACA1333001A5A37 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F89AB5C2ACA1333001A5A37 /* Item.swift */; };
+		7F89AB5D2ACA1333001A5A37 /* PushupsRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F89AB5C2ACA1333001A5A37 /* PushupsRecord.swift */; };
 		7F89AB5F2ACA1334001A5A37 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7F89AB5E2ACA1334001A5A37 /* Assets.xcassets */; };
 		7F89AB622ACA1334001A5A37 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7F89AB612ACA1334001A5A37 /* Preview Assets.xcassets */; };
+		7F89AB6B2ACA13D5001A5A37 /* MasterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F89AB6A2ACA13D5001A5A37 /* MasterViewModel.swift */; };
+		7F89AB6E2ACA1AFE001A5A37 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7F89AB702ACA1AFE001A5A37 /* InfoPlist.strings */; };
+		7F89AB722ACACA73001A5A37 /* PushupSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F89AB712ACACA73001A5A37 /* PushupSheetView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		7F89AB552ACA1333001A5A37 /* FitApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FitApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7F89AB582ACA1333001A5A37 /* FitAppApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FitAppApp.swift; sourceTree = "<group>"; };
 		7F89AB5A2ACA1333001A5A37 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
-		7F89AB5C2ACA1333001A5A37 /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
+		7F89AB5C2ACA1333001A5A37 /* PushupsRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushupsRecord.swift; sourceTree = "<group>"; };
 		7F89AB5E2ACA1334001A5A37 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7F89AB612ACA1334001A5A37 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		7F89AB632ACA1334001A5A37 /* FitApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = FitApp.entitlements; sourceTree = "<group>"; };
 		7F89AB642ACA1334001A5A37 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		7F89AB6A2ACA13D5001A5A37 /* MasterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasterViewModel.swift; sourceTree = "<group>"; };
+		7F89AB6F2ACA1AFE001A5A37 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		7F89AB712ACACA73001A5A37 /* PushupSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushupSheetView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -36,6 +42,21 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7F2ED9D52ACC3D1600E72657 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				7F89AB5C2ACA1333001A5A37 /* PushupsRecord.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		7F2ED9D62ACC473900E72657 /* Repository */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Repository;
+			sourceTree = "<group>";
+		};
 		7F89AB4C2ACA1333001A5A37 = {
 			isa = PBXGroup;
 			children = (
@@ -55,13 +76,17 @@
 		7F89AB572ACA1333001A5A37 /* FitApp */ = {
 			isa = PBXGroup;
 			children = (
+				7F2ED9D62ACC473900E72657 /* Repository */,
+				7F2ED9D52ACC3D1600E72657 /* Models */,
 				7F89AB582ACA1333001A5A37 /* FitAppApp.swift */,
 				7F89AB5A2ACA1333001A5A37 /* ContentView.swift */,
-				7F89AB5C2ACA1333001A5A37 /* Item.swift */,
 				7F89AB5E2ACA1334001A5A37 /* Assets.xcassets */,
 				7F89AB632ACA1334001A5A37 /* FitApp.entitlements */,
+				7F89AB702ACA1AFE001A5A37 /* InfoPlist.strings */,
 				7F89AB642ACA1334001A5A37 /* Info.plist */,
 				7F89AB602ACA1334001A5A37 /* Preview Content */,
+				7F89AB6A2ACA13D5001A5A37 /* MasterViewModel.swift */,
+				7F89AB712ACACA73001A5A37 /* PushupSheetView.swift */,
 			);
 			path = FitApp;
 			sourceTree = "<group>";
@@ -133,6 +158,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7F89AB622ACA1334001A5A37 /* Preview Assets.xcassets in Resources */,
+				7F89AB6E2ACA1AFE001A5A37 /* InfoPlist.strings in Resources */,
 				7F89AB5F2ACA1334001A5A37 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -144,13 +170,27 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7F89AB722ACACA73001A5A37 /* PushupSheetView.swift in Sources */,
+				7F89AB6B2ACA13D5001A5A37 /* MasterViewModel.swift in Sources */,
 				7F89AB5B2ACA1333001A5A37 /* ContentView.swift in Sources */,
-				7F89AB5D2ACA1333001A5A37 /* Item.swift in Sources */,
+				7F89AB5D2ACA1333001A5A37 /* PushupsRecord.swift in Sources */,
 				7F89AB592ACA1333001A5A37 /* FitAppApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		7F89AB702ACA1AFE001A5A37 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				7F89AB6F2ACA1AFE001A5A37 /* en */,
+			);
+			name = InfoPlist.strings;
+			path = FitApp;
+			sourceTree = SOURCE_ROOT;
+		};
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		7F89AB652ACA1334001A5A37 /* Debug */ = {

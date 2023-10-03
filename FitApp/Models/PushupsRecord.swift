@@ -9,10 +9,12 @@ import Foundation
 import SwiftData
 
 @Model
-final class Item {
+final class PushupsRecord {
     var timestamp: Date
+    var pushupsNumber: Int
     
-    init(timestamp: Date) {
+    init(timestamp: Date, noPushups: Int) {
         self.timestamp = timestamp
+        self.pushupsNumber = noPushups
     }
 }

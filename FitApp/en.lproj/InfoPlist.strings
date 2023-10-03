@@ -1,0 +1,10 @@
+/* 
+  InfoPlist.strings
+  FitApp
+
+  Created by Štěpán Pazderka on 01.10.2023.
+  
+*/
+
+"NSHealthShareUsageDescription" = "Bla bla bla and so on and so forth";
+"NSHealthUpdateUsageDescription" = "We save [specific health data you save] to keep track of [your reason here].";
