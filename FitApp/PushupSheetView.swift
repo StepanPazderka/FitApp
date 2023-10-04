@@ -18,7 +18,7 @@ struct PushupSheetView: View {
         NavigationStack {
             VStack(spacing: 20) {
                 DatePicker("Date", selection: $pushupRecord.timestamp, displayedComponents: [.date])
-                TextField("Number of pushups", value: $pushupRecord.pushupsNumber, format: .number)
+                TextField("Number of pushups", value: $pushupRecord.pullupsNumber, format: .number)
                     .keyboardType(.numberPad)
                     .padding()
                     .border(Color.gray, width: 0.5)

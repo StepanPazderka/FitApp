@@ -8,8 +8,25 @@
 import SwiftUI
 import SwiftData
 
+typealias PushupsRecord = FitAppSchemaV2.PullupsRecord
+
+enum FitAppMigrationPlan: SchemaMigrationPlan {
+    static var schemas: [VersionedSchema.Type] {
+        [FitAppSchemaV1.self,
+         FitAppSchemaV2.self]
+    }
+    
+    static var stages: [MigrationStage] {
+        [migrateV1toV2]
+    }
+    
+    static let migrateV1toV2 = MigrationStage.lightweight(fromVersion: FitAppSchemaV1.self, toVersion: FitAppSchemaV2.self)
+}
+
 @main
 struct FitAppApp: App {
+    @ObservedObject var masterViewModel = MasterViewModelImpl()
+    
     var sharedModelContainer: ModelContainer = {
         let schema = Schema([
             PushupsRecord.self,
@@ -17,7 +34,7 @@ struct FitAppApp: App {
         let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
 
         do {
-            return try ModelContainer(for: schema, configurations: [modelConfiguration])
+            return try ModelContainer(for: schema, migrationPlan: FitAppMigrationPlan.self, configurations: [modelConfiguration])
         } catch {
             fatalError("Could not create ModelContainer: \(error)")
         }
@@ -25,8 +42,9 @@ struct FitAppApp: App {
 
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            MasterView()
         }
         .modelContainer(sharedModelContainer)
+        .environmentObject(masterViewModel)
     }
 }

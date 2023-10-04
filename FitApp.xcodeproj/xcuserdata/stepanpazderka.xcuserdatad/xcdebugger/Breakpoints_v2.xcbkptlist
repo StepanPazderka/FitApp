@@ -3,4 +3,54 @@
    uuid = "5B93E661-A221-4878-9E4E-7F6B6D1728E7"
    type = "1"
    version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "A17AABEC-0C74-4A82-9079-A971C3B6EFFA"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "FitApp/MasterViewModel.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "163"
+            endingLineNumber = "163"
+            landmarkName = "fetchData()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "A17AABEC-0C74-4A82-9079-A971C3B6EFFA - 8c061b5f3b705f43"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "FitApp.MasterViewModel.fetchData(from: Foundation.Date, to: Foundation.Date, for: __C.HKQuantityType, typeOfStartDay: __C.HKQueryOptions, completion: (Swift.Result&lt;Swift.Double, Swift.Error&gt;) -&gt; ()) -&gt; ()"
+                  moduleName = "FitApp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/stepanpazderka/Developer/FitApp/FitApp/MasterViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "163"
+                  endingLineNumber = "163"
+                  offsetFromSymbolStart = "200">
+               </Location>
+               <Location
+                  uuid = "A17AABEC-0C74-4A82-9079-A971C3B6EFFA - 26fe7891a2109795"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #7 (Swift.Optional&lt;Swift.Double&gt;) -&gt; () in FitApp.MasterViewModel.fetchData() -&gt; ()"
+                  moduleName = "FitApp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/stepanpazderka/Developer/FitApp/FitApp/MasterViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "163"
+                  endingLineNumber = "163"
+                  offsetFromSymbolStart = "136">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
 </Bucket>

@@ -8,9 +8,9 @@
 import SwiftUI
 import SwiftData
 
-struct ContentView: View {
+struct MasterView: View {
     @Environment(\.modelContext) private var modelContext
-    @ObservedObject var viewModel = MasterViewModel()
+    @EnvironmentObject var viewModel: MasterViewModelImpl
     @Query private var pushupRecords: [PushupsRecord]
     
     @State private var showingAddPushupAlert = false
@@ -38,13 +38,20 @@ struct ContentView: View {
                         .fontWeight(.regular)
                         .font(.caption)
                     Spacer()
-                    Text(viewModel.weight)
+                    Text(viewModel.ultimateWeight)
                         .font(.largeTitle)
                     Text("weight")
                         .foregroundStyle(.secondary)
                         .fontWeight(.regular)
                         .font(.caption)
-                    Spacer()    
+                    Spacer()
+                    Text(viewModel.penultimateWeight)
+                        .font(.largeTitle)
+                    Text("second to last weight")
+                        .foregroundStyle(.secondary)
+                        .fontWeight(.regular)
+                        .font(.caption)
+                    Spacer()
                         .font(.title3)
                     Text(viewModel.energyBured)
                         .font(.largeTitle)
@@ -71,7 +78,7 @@ struct ContentView: View {
                                 Text(item.timestamp, format: Date.FormatStyle(date: .numeric, time: .none))
                                 Spacer()
                                     .fontWeight(.light)
-                                Text("\(item.pushupsNumber)")
+                                Text("\(item.pullupsNumber)")
                                     .fontWeight(.bold)
                                     .font(.headline)
                             }
@@ -107,7 +114,7 @@ struct ContentView: View {
             viewModel.requestHealthDataAccess()
         }
         .alert(isPresented: $viewModel.showingAlertNoHealthDataAcces, content: {
-            Alert(title: Text("Health data is not accessible on this device"))
+            Alert(title: Text(viewModel.errorLabel))
         })
     }
     
@@ -127,6 +134,6 @@ struct ContentView: View {
 }
 
 #Preview {
-    ContentView()
+    MasterView()
         .modelContainer(for: PushupsRecord.self, inMemory: true)
 }
