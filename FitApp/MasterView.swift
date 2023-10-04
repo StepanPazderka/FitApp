@@ -10,13 +10,12 @@ import SwiftData
 
 struct MasterView: View {
     @Environment(\.modelContext) private var modelContext
-    @EnvironmentObject var viewModel: MasterViewModelImpl
+    @Environment(MasterViewModelImpl.self) var viewModel
     @Query private var pushupRecords: [PushupsRecord]
     
     @State private var showingAddPushupAlert = false
     @State private var pushupsInput: String = ""
-    
-    
+        
     var body: some View {
         TabView {
             NavigationStack {
@@ -113,7 +112,7 @@ struct MasterView: View {
             viewModel.setupNotification()
             viewModel.requestHealthDataAccess()
         }
-        .alert(isPresented: $viewModel.showingAlertNoHealthDataAcces, content: {
+        .alert(isPresented: $showingAddPushupAlert, content: {
             Alert(title: Text(viewModel.errorLabel))
         })
     }

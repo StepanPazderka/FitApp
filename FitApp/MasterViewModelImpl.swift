@@ -9,6 +9,7 @@ import Foundation
 import Combine
 import HealthKit
 import UIKit
+import Observation
 
 protocol MasterViewModel {
     var stepsToday: String { get }
@@ -17,7 +18,7 @@ protocol MasterViewModel {
     func fetchData()
 }
 
-class MasterViewModelImpl: MasterViewModel, ObservableObject {
+@Observable class MasterViewModelImpl: MasterViewModel {
     
     enum HealthDataFetchError: Error {
         case noDataFound
@@ -28,14 +29,14 @@ class MasterViewModelImpl: MasterViewModel, ObservableObject {
     var activeEnergyBurned: Double?
     var pasiveEnergyBurned: Double?
     
-    @Published var energyBured: String = "Not Available"
-    @Published var stepsToday: String = "Not Available"
-    @Published var stepsYesterday: String = "Not Available"
-    @Published var ultimateWeight: String = ""
-    @Published var penultimateWeight: String = ""
+    var energyBured: String = "Not Available"
+    var stepsToday: String = "Not Available"
+    var stepsYesterday: String = "Not Available"
+    var ultimateWeight: String = ""
+    var penultimateWeight: String = ""
     
-    @Published var showingAlertNoHealthDataAcces = false
-    @Published var errorLabel = ""
+    var showingAlertNoHealthDataAcces = false
+    var errorLabel = ""
     
     func setupNotification() {
         NotificationCenter.default.addObserver(forName: UIApplication.willEnterForegroundNotification, object: nil, queue: .main) { _ in

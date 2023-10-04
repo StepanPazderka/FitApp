@@ -25,7 +25,7 @@ enum FitAppMigrationPlan: SchemaMigrationPlan {
 
 @main
 struct FitAppApp: App {
-    @ObservedObject var masterViewModel = MasterViewModelImpl()
+    @Bindable var masterViewModel = MasterViewModelImpl()
     
     var sharedModelContainer: ModelContainer = {
         let schema = Schema([
@@ -45,6 +45,6 @@ struct FitAppApp: App {
             MasterView()
         }
         .modelContainer(sharedModelContainer)
-        .environmentObject(masterViewModel)
+        .environment(masterViewModel)
     }
 }
