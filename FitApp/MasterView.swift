@@ -77,12 +77,12 @@ struct MasterView: View {
                         VStack(alignment: .leading) {
                             Rectangle()
                                 .fill(.red)
-                                .frame(height: 250)
+                                .frame(height: 260)
                                 .overlay(
                                     Text(viewModel.alertLabelDescription)
                                         .foregroundColor(.white)
                                         .bold()
-                                        .padding(EdgeInsets(top: 150, leading: 0, bottom: 0, trailing: 0))
+                                        .padding(EdgeInsets(top: 150, leading: 10, bottom: 0, trailing: 10))
                                 )
                                 .frame(height: geometry.safeAreaInsets.top)
                                 .ignoresSafeArea(.all)
