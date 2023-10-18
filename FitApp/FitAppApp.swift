@@ -8,7 +8,7 @@
 import SwiftUI
 import SwiftData
 
-typealias PushupsRecord = FitAppSchemaV2.PullupsRecord
+typealias PullupsRecord = FitAppSchemaV2.PullupsRecord
 
 enum FitAppMigrationPlan: SchemaMigrationPlan {
     static var schemas: [VersionedSchema.Type] {
@@ -28,9 +28,7 @@ struct FitAppApp: App {
     @Bindable var masterViewModel = MasterViewModelImpl()
     
     var sharedModelContainer: ModelContainer = {
-        let schema = Schema([
-            PushupsRecord.self,
-        ])
+        let schema = Schema([PullupsRecord.self])
         let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
 
         do {

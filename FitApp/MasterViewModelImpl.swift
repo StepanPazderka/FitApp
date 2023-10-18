@@ -27,16 +27,16 @@ protocol MasterViewModel {
     let healthStore = HKHealthStore()
     
     var activeEnergyBurned: Double?
-    var pasiveEnergyBurned: Double?
+    var passiveEnergyBurned: Double?
     
-    var energyBured: String = "Not Available"
+    var energyBurned: String = "Not Available"
     var stepsToday: String = "Not Available"
     var stepsYesterday: String = "Not Available"
     var ultimateWeight: String = ""
     var penultimateWeight: String = ""
     
-    var showingAlertNoHealthDataAcces = false
-    var errorLabel = ""
+    var showingAlert = false
+    var alertLabelDescription = ""
     
     func setupNotification() {
         NotificationCenter.default.addObserver(forName: UIApplication.willEnterForegroundNotification, object: nil, queue: .main) { _ in
@@ -53,7 +53,7 @@ protocol MasterViewModel {
             return
         }
         
-        guard let pasiveEnergyBurned = HKObjectType.quantityType(forIdentifier: .basalEnergyBurned) else {
+        guard let passiveEnergyBurned = HKObjectType.quantityType(forIdentifier: .basalEnergyBurned) else {
             return
         }
         
@@ -66,10 +66,11 @@ protocol MasterViewModel {
             return
         }
         
-        healthStore.requestAuthorization(toShare: [], read: [stepsCount, activeEnergyBurned, pasiveEnergyBurned, weight]) { success, error in
+        healthStore.requestAuthorization(toShare: [], read: [stepsCount, activeEnergyBurned, passiveEnergyBurned, weight]) { success, error in
             if success {
                 self.fetchData()
             } else if let error = error {
+                self.alertLabelDescription = error.localizedDescription
                 print("Error requesting HealthKit authorization: \(error)")
             }
         }
@@ -97,65 +98,54 @@ protocol MasterViewModel {
         let startOfToday = calendar.startOfDay(for: now)
         let startOfYesterday = calendar.date(byAdding: .day, value: -1, to: startOfToday)!
         
-        fetchData(from: startOfToday, to: now, for: stepCountType, typeOfStartDay: .strictStartDate) { [weak self] result in
+        fetchCumulativeData(from: startOfToday, to: now, for: stepCountType, typeOfStartDay: .strictStartDate) { [weak self] result in
             switch result {
             case .success(let data) :
-                self?.stepsToday = self?.formattedSteps(data) ?? "0"
+                self?.stepsToday = self?.formatSteps(data) ?? "0"
             case .failure(let error) :
-                self?.errorLabel = error.localizedDescription
-                self?.showingAlertNoHealthDataAcces = false
+                self?.alertLabelDescription = error.localizedDescription
+                self?.showingAlert = true
             }
         }
         
-        fetchData(from: startOfYesterday, to: startOfToday, for: stepCountType, typeOfStartDay: .strictStartDate) { [weak self] result in
+        fetchCumulativeData(from: startOfYesterday, to: startOfToday, for: stepCountType, typeOfStartDay: .strictStartDate) { [weak self] result in
             switch result {
             case .success(let data) :
-                self?.stepsYesterday = self?.formattedSteps(data) ?? "0"
+                self?.stepsYesterday = self?.formatSteps(data) ?? "0"
             case .failure(let error) :
-                self?.errorLabel = error.localizedDescription
-                self?.showingAlertNoHealthDataAcces = false
+                self?.alertLabelDescription = "Couldnt load steps: \(error.localizedDescription)"
+                self?.showingAlert = true
             }
         }
         
-        fetchData(from: startOfToday, to: now, for: activeEnergyBurnedType, typeOfStartDay: .strictStartDate, completion: { [weak self] result in
+        fetchCumulativeData(from: startOfToday, to: now, for: activeEnergyBurnedType, typeOfStartDay: .strictStartDate, completion: { [weak self] result in
             switch result {
             case .success(let data) :
                 self?.activeEnergyBurned = data
             case .failure(let error) :
-                self?.errorLabel = error.localizedDescription
-                self?.showingAlertNoHealthDataAcces = false
+                self?.alertLabelDescription = "Couldnt load active energy: \(error.localizedDescription)"
+                self?.showingAlert = true
             }
         })
         
-        fetchData(from: startOfToday, to: now, for: pasiveEnergyBurnedType, typeOfStartDay: .strictStartDate, completion: { [weak self] result in
+        fetchCumulativeData(from: startOfToday, to: now, for: pasiveEnergyBurnedType, typeOfStartDay: .strictStartDate, completion: { [weak self] result in
             switch result {
             case .success(let data) :
-                self?.pasiveEnergyBurned = data
+                self?.passiveEnergyBurned = data
                 
                 if let activeEnergyBurned = self?.activeEnergyBurned {
                     let numberFormatter = NumberFormatter()
                     numberFormatter.numberStyle = .decimal
                     let summedNumber = activeEnergyBurned + data
-                    self?.energyBured = "\(numberFormatter.string(from: NSNumber(value: summedNumber.rounded())) ?? "0")"
+                    self?.energyBurned = "\(numberFormatter.string(from: NSNumber(value: summedNumber.rounded())) ?? "0")"
                 }
             case .failure(let error) :
-                self?.errorLabel = error.localizedDescription
-                self?.showingAlertNoHealthDataAcces = false
+                self?.alertLabelDescription = "Couldn't load passive energy: \(error.localizedDescription)"
+                self?.showingAlert = true
             }
         })
         
-        
-        fetchBodyMass(from: startOfYesterday, to: now, for: weight, options: .mostRecent, completion: { [weak self] weight in
-            let formatter = NumberFormatter()
-            formatter.numberStyle = .decimal
-            formatter.maximumFractionDigits = 2
-            if let number = formatter.string(from: NSNumber(value: (weight/1000))) {
-                self?.ultimateWeight = "\(number) kg"
-            }
-            print(weight)
-        })
-        
-        fetchBodyMass(from: Calendar.current.date(byAdding: .year, value: -10, to: now)!, to: now, for: weight, options: .mostRecent) { [weak self] weightData in
+        fetchStrictData(from: Calendar.current.date(byAdding: .year, value: -10, to: now)!, to: now, for: weight, options: .mostRecent) { [weak self] weightData in
             print(weightData)
         }
         
@@ -170,9 +160,21 @@ protocol MasterViewModel {
                 print(result)
             }
         }
+        
+        fetchUltimateWeight() { [weak self] result in
+            if let result {
+                let formatter = NumberFormatter()
+                formatter.numberStyle = .decimal
+                formatter.maximumFractionDigits = 2
+                if let number = formatter.string(from: NSNumber(value: (result))) {
+                    self?.ultimateWeight = "\(number) kg"
+                }
+                print(result)
+            }
+        }
     }
     
-    private func fetchData(from startDate: Date, to endDate: Date, for type: HKQuantityType, typeOfStartDay: HKQueryOptions, completion: @escaping (Result<Double, Error>) -> Void) {
+    private func fetchCumulativeData(from startDate: Date, to endDate: Date, for type: HKQuantityType, typeOfStartDay: HKQueryOptions, completion: @escaping (Result<Double, Error>) -> Void) {
         let predicate = HKQuery.predicateForSamples(withStart: startDate, end: endDate, options: typeOfStartDay)
         let query = HKStatisticsQuery(quantityType: type, quantitySamplePredicate: predicate, options: .cumulativeSum) { query, result, error in
             guard let result = result, let sum = result.sumQuantity() else {
@@ -197,35 +199,34 @@ protocol MasterViewModel {
         healthStore.execute(query)
     }
     
-    private func fetchBodyMass(from startDate: Date, to endDate: Date, for type: HKQuantityType, options: HKStatisticsOptions, completion: @escaping (Double) -> Void) {
+    private func fetchStrictData(from startDate: Date, to endDate: Date, for type: HKQuantityType, options: HKStatisticsOptions, completion: @escaping (Result<Double, Error>) -> Void) {
         let predicate = HKQuery.predicateForSamples(withStart: startDate, end: endDate, options: .strictStartDate)
-        let query = HKStatisticsQuery(quantityType: type, quantitySamplePredicate: predicate, options: options) { _, result, error in
+        let query = HKStatisticsQuery(quantityType: type, quantitySamplePredicate: predicate, options: options) { query, result, error in
             guard let result = result else {
                 DispatchQueue.main.async {
-                    completion(0)
+                    completion(.failure(error ?? HealthDataFetchError.noDataFound))
                 }
                 return
             }
             DispatchQueue.main.async {
                 if type == HKQuantityType.quantityType(forIdentifier: .bodyMass) {
-                    let quantity = result.mostRecentQuantity()
-                    
-                    completion(quantity?.doubleValue(for: HKUnit.gram()) ?? 0.0)
+                    let fetchedData = result.mostRecentQuantity()
+                    if let fetchedData {
+                        let result = fetchedData.doubleValue(for: HKUnit.gramUnit(with: .kilo))
+                        completion(.success(result))
+                    }
                 }
             }
         }
         healthStore.execute(query)
     }
     
-    func fetchPenultimateWeight(completion: @escaping (Double?) -> Void) {
-        // Check if weight type is available
+    private func fetchUltimateWeight(completion: @escaping (Double?) -> Void) {
         guard let weightSampleType = HKObjectType.quantityType(forIdentifier: .bodyMass) else {
-            print("Weight Sample Type is unavailable")
             completion(nil)
             return
         }
         
-        // Create a query to fetch the most recent 2 samples
         let query = HKSampleQuery(sampleType: weightSampleType, predicate: nil, limit: 2, sortDescriptors: [NSSortDescriptor(key: HKSampleSortIdentifierStartDate, ascending: false)]) { (query, samples, error) in
 
             guard let samples = samples as? [HKQuantitySample], samples.count > 1 else {
@@ -233,14 +234,32 @@ protocol MasterViewModel {
                 return
             }
 
-            let penultimateWeight = samples[1].quantity.doubleValue(for: HKUnit.gramUnit(with: .kilo))  // or whatever unit you prefer
-            print("Penultimate weight: \(penultimateWeight)")
+            let penultimateWeight = samples[0].quantity.doubleValue(for: HKUnit.gramUnit(with: .kilo))
             completion(penultimateWeight)
         }
         healthStore.execute(query)
     }
     
-    private func formattedSteps(_ steps: Double) -> String {
+    private func fetchPenultimateWeight(completion: @escaping (Double?) -> Void) {
+        guard let weightSampleType = HKObjectType.quantityType(forIdentifier: .bodyMass) else {
+            completion(nil)
+            return
+        }
+        
+        let query = HKSampleQuery(sampleType: weightSampleType, predicate: nil, limit: 2, sortDescriptors: [NSSortDescriptor(key: HKSampleSortIdentifierStartDate, ascending: false)]) { (query, samples, error) in
+
+            guard let samples = samples as? [HKQuantitySample], samples.count > 1 else {
+                print("Unable to fetch weight samples or less than 2 samples returned.")
+                return
+            }
+
+            let penultimateWeight = samples[1].quantity.doubleValue(for: HKUnit.gramUnit(with: .kilo))
+            completion(penultimateWeight)
+        }
+        healthStore.execute(query)
+    }
+    
+    private func formatSteps(_ steps: Double) -> String {
         let formatter = NumberFormatter()
         formatter.numberStyle = .decimal
         return formatter.string(from: NSNumber(value: steps)) ?? "0"

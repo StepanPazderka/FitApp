@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		7F2ED9DA2ACC49C800E72657 /* SwiftDataSchema.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F2ED9D92ACC49C800E72657 /* SwiftDataSchema.swift */; };
+		7F3C852E2AE0849E0086550A /* PreviewContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F3C852D2AE0849E0086550A /* PreviewContainer.swift */; };
 		7F89AB592ACA1333001A5A37 /* FitAppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F89AB582ACA1333001A5A37 /* FitAppApp.swift */; };
 		7F89AB5B2ACA1333001A5A37 /* MasterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F89AB5A2ACA1333001A5A37 /* MasterView.swift */; };
 		7F89AB5F2ACA1334001A5A37 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7F89AB5E2ACA1334001A5A37 /* Assets.xcassets */; };
@@ -15,10 +16,12 @@
 		7F89AB6B2ACA13D5001A5A37 /* MasterViewModelImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F89AB6A2ACA13D5001A5A37 /* MasterViewModelImpl.swift */; };
 		7F89AB6E2ACA1AFE001A5A37 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7F89AB702ACA1AFE001A5A37 /* InfoPlist.strings */; };
 		7F89AB722ACACA73001A5A37 /* PushupSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F89AB712ACACA73001A5A37 /* PushupSheetView.swift */; };
+		7FEC85122AD1F1E90051FCFF /* HealthDataRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FEC85112AD1F1E90051FCFF /* HealthDataRepository.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		7F2ED9D92ACC49C800E72657 /* SwiftDataSchema.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftDataSchema.swift; sourceTree = "<group>"; };
+		7F3C852D2AE0849E0086550A /* PreviewContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewContainer.swift; sourceTree = "<group>"; };
 		7F89AB552ACA1333001A5A37 /* FitApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FitApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7F89AB582ACA1333001A5A37 /* FitAppApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FitAppApp.swift; sourceTree = "<group>"; };
 		7F89AB5A2ACA1333001A5A37 /* MasterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasterView.swift; sourceTree = "<group>"; };
@@ -29,6 +32,7 @@
 		7F89AB6A2ACA13D5001A5A37 /* MasterViewModelImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasterViewModelImpl.swift; sourceTree = "<group>"; };
 		7F89AB6F2ACA1AFE001A5A37 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		7F89AB712ACACA73001A5A37 /* PushupSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushupSheetView.swift; sourceTree = "<group>"; };
+		7FEC85112AD1F1E90051FCFF /* HealthDataRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthDataRepository.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -53,6 +57,7 @@
 		7F2ED9D62ACC473900E72657 /* Repository */ = {
 			isa = PBXGroup;
 			children = (
+				7FEC85112AD1F1E90051FCFF /* HealthDataRepository.swift */,
 			);
 			path = Repository;
 			sourceTree = "<group>";
@@ -87,6 +92,7 @@
 				7F89AB602ACA1334001A5A37 /* Preview Content */,
 				7F89AB6A2ACA13D5001A5A37 /* MasterViewModelImpl.swift */,
 				7F89AB712ACACA73001A5A37 /* PushupSheetView.swift */,
+				7F3C852D2AE0849E0086550A /* PreviewContainer.swift */,
 			);
 			path = FitApp;
 			sourceTree = "<group>";
@@ -171,9 +177,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				7F89AB722ACACA73001A5A37 /* PushupSheetView.swift in Sources */,
+				7FEC85122AD1F1E90051FCFF /* HealthDataRepository.swift in Sources */,
 				7F89AB6B2ACA13D5001A5A37 /* MasterViewModelImpl.swift in Sources */,
 				7F89AB5B2ACA1333001A5A37 /* MasterView.swift in Sources */,
 				7F2ED9DA2ACC49C800E72657 /* SwiftDataSchema.swift in Sources */,
+				7F3C852E2AE0849E0086550A /* PreviewContainer.swift in Sources */,
 				7F89AB592ACA1333001A5A37 /* FitAppApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
